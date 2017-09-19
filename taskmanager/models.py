@@ -57,6 +57,21 @@ class Project(models.Model):
         return "%s - %s" % (self.user, self.name)
 
 
+class Tag(models.Model):
+
+    user = models.ForeignKey(Profile, related_name='tags', verbose_name='user')
+    name = models.CharField(max_length=100, verbose_name='Name')
+
+    objects = managers.TagManager()
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+        ordering = ("user", "name")
+        unique_together = ("user", "name")
+
+    def __str__(self):
+        return "%s - %s" % (self.user, self.name)
 
 
 
